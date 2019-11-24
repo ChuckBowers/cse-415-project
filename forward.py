@@ -13,4 +13,3 @@ def forward (observations, states, initial_prob, transition_prob, emission_prob)
         for j in range(len(observations)):
             row.append(0)
         probabilities.append(row)
-        
