@@ -1,0 +1,21 @@
+For our project we chose to do Option 4: an application of a Hidden Markov model (HMM). We decided to utilize an HMM
+for part of speech (POS) tagging. There are four main tasks we needed to do for this assignment: 1) Find a dataset
+to use for demonstrating our HMM works, 2) understand and develop the forward algorithm, 3) understand and develop the
+Viterbi algorithm, and 4) implement a UI to display a trellis diagram demonstrating our models in action. Thus far
+we have completed 1) and 2). For our dataset we chose the Brown University Standard Corpus of Present-Dat American
+English (commonly referred to as Brown Corpus) which contains 500 samples of annotated text or roughly one million
+words. The dataset however, did not come with transition probability tables or emission probability tables, the two
+keys that make the forward algorithm work. Thus, we had to figure out ways of leveraging existing python packages (nltk)
+to create said tables. We implemented the forward algorith concurrently, so we did not have the dataset ready to go
+to demonstrate its functionality. Thus we demonstrate the forward algorithm works correctly using the classic example
+for HMMs - rain vs sun. Below is a sample output of our algorithm, which was implemented in forward.py, correctly
+giving us the non-normalized probability ratios for the possible states. Going forward we will need to understand
+and implement the Viterbi algorithm and create the UI for displaying our algorithms.
+
+
+### SAMPLE EXECUTION ###
+> python3 forward.py
+
+		Obs1	Obs2
+sunny	0.1000	0.0410
+rainy	0.4500	0.3105
