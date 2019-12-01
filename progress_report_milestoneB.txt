@@ -19,3 +19,10 @@ and implement the Viterbi algorithm and create the UI for displaying our algorit
 		Obs1	Obs2
 sunny	0.1000	0.0410
 rainy	0.4500	0.3105
+
+
+### SOURCES ###
+https://stackoverflow.com/questions/30791194/nltk-get-and-simplify-list-of-tags
+https://web.stanford.edu/~jurafsky/slp3/8.pdf
+https://web.stanford.edu/~jurafsky/slp3/A.pdf
+
