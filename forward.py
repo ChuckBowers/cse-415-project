@@ -9,10 +9,10 @@ This is our implementation of the forward algorithm for part of speech tagging.
 possible_states = ['sunny', 'rainy']
 states_i = [0, 1]
 possible_observations = ['umbrella', 'no umbrella']
-observed = [0, 0]
+observed = [0, 0, 1, 1, 0]
 emissions = [[0.2, 0.8], [0.9, 0.1]]  # [state][observation]
 transitions = [[0.7, 0.3], [0.3, 0.7]]  # [state 1][state 2]
-initial = [0.5, 0.5] # initial observations
+initial = [0.5, 0.5]  # initial observations
 
 
 def forward(observations, states, initial_prob, transition_prob, emission_prob):
@@ -39,6 +39,22 @@ def forward(observations, states, initial_prob, transition_prob, emission_prob):
     return probabilities
 
 
+def normalize(result):
+    totals = []
+    normalized_result = []
+    for i in range(len(result[0])):
+        total = 0
+        for j in range(len(result)):
+            total += result[j][i]
+        totals.append(total)
+    for i in range(len(result)):
+        normalized_row = []
+        for j in range(len(result[0])):
+            normalized_row.append(result[i][j] / totals[j])
+        normalized_result.append(normalized_row)
+    return normalized_result
+
+
 def format(result, poss_states, states_index):
     print("\t", end="")
     for i in range(len(result[0])):
@@ -54,4 +70,6 @@ def format(result, poss_states, states_index):
         print("")
 
 
-format(forward(observed, states_i, initial, transitions, emissions), possible_states, states_i)
+format(normalize(forward(observed, states_i, initial, transitions, emissions)), possible_states, states_i)
+probs = normalize(forward(observed, states_i, initial, transitions, emissions))
+print(probs)
