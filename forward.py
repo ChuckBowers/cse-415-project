@@ -71,5 +71,5 @@ def format(result, poss_states, states_index):
 
 
 format(normalize(forward(observed, states_i, initial, transitions, emissions)), possible_states, states_i)
-value = normalize(forward(observed, states_i, initial, transitions, emissions))
-print(value)
+probs = normalize(forward(observed, states_i, initial, transitions, emissions))
+print(probs)
