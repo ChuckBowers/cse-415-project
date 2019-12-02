@@ -25,12 +25,9 @@ transition_matrix = nltk.ConditionalProbDist(transition_cond_freq_dist, nltk.MLE
 # Emission probability: P(yt | xt)
 emission_cond_freq_dist = nltk.ConditionalFreqDist(tagged_corpus)
 emission_matrix = nltk.ConditionalProbDist(emission_cond_freq_dist, nltk.MLEProbDist)
-=======
-from nltk.corpus import brown
 
 # Define global set of words in corpus
 corpus_words = set(brown.tagged_words())
-print(corpus_words)
 unique_corpus_words = [word.lower() for word, tag in corpus_words]
 
 
