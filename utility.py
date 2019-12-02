@@ -30,7 +30,7 @@ def probability_matrices():
     emission_cond_freq_dist = nltk.ConditionalFreqDist(tagged_corpus)
     emission_matrix = nltk.ConditionalProbDist(emission_cond_freq_dist, nltk.MLEProbDist)
 
-    return {"transition": transition_matrix, "emission": emission_matrix}
+    return {"transition": transition_matrix, "emission": emission_matrix, "tags": pos_tags}
 
 
 # Returns True if word exists in Brown Corpus, False if not

@@ -5,7 +5,6 @@ Authors:
 This is our implementation of the forward algorithm for part of speech tagging.
 """
 
-
 possible_states = ['sunny', 'rainy']
 states_i = [0, 1]
 possible_observations = ['umbrella', 'no umbrella']
@@ -14,7 +13,16 @@ emissions = [[0.2, 0.8], [0.9, 0.1]]  # [state][observation]
 transitions = [[0.7, 0.3], [0.3, 0.7]]  # [state 1][state 2]
 initial = [0.5, 0.5]  # initial observations
 
+'''def forward(observations, states, transition_prob, emission_prob):
+    probabilities = []
+    for i in range(len(states)):
+        row = []
+        for j in range(len(observations)):
+            row.append(0.0)
+        probabilities.append(row)
 
+    for i in range(len(states)):
+        probabilities[i][0] = emission_prob'''
 def forward(observations, states, transition_prob, emission_prob):
     probabilities = []
 

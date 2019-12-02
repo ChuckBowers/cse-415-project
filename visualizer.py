@@ -2,8 +2,10 @@ from tkinter import *
 from forward import *
 from viterbi import *
 from nltk import word_tokenize
+from utility import *
 import random
 
+model_info = probability_matrices()
 
 def execute():
     if len(sentence_input.get()) == 0:
@@ -32,9 +34,9 @@ def execute():
     elif v.get() == "2":
         canvas.delete("all")
         new_sentence = word_tokenize(sentence_input.get())
-        result = viterbi(distinct_tags, new_sentence, transition_matrix, emission_matrix)
-        pos = result["predicted_tags"]
-        valid_result = False
+        result = viterbi(model_info["tags"], new_sentence, model_info["transition"], model_info["emission"])
+        # pos = result["predicted_tags"]
+        # valid_result = False
         # for i in range(len(pos)):
         #    if pos[i] is not None and pos[i] is not ':-':
         #        valid_result = True
