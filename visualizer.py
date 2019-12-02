@@ -35,12 +35,7 @@ def execute():
         canvas.delete("all")
         new_sentence = word_tokenize(sentence_input.get())
         result = viterbi(model_info["tags"], new_sentence, model_info["transition"], model_info["emission"])
-        # pos = result["predicted_tags"]
-        # valid_result = False
-        # for i in range(len(pos)):
-        #    if pos[i] is not None and pos[i] is not ':-':
-        #        valid_result = True
-        new_len = 100 * len(result["predicted_tags"])
+        new_len = 100 * len(result)
         new_height = 750
         if new_len > 750 or new_height > 750:
             canvas.config(height=new_height, width=new_len)
@@ -48,10 +43,7 @@ def execute():
             canvas.create_rectangle(10 + 100 * i, 25, 100 + 100 * i, 75, fill="white")
             canvas.create_text(55 + 100 * i, 50, text=new_sentence[i])
             canvas.create_rectangle(10 + 100 * i, 90, 100 + 100 * i, 135, fill="lightblue")
-            canvas.create_text(55 + 100 * i, 112, text=result["predicted_tags"][i + 1])
-        '''if not valid_result:
-            canvas.delete("all")
-            canvas.create_text(375, 50, text="Found an Illegal Word")'''
+            canvas.create_text(55 + 100 * i, 112, text=result[i + 1])
         print(result)
 
 root = Tk()

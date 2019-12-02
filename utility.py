@@ -3,7 +3,8 @@ from nltk.corpus import brown
 
 # Define global set of words in corpus
 corpus_words = set(brown.tagged_words())
-unique_corpus_words = [word.lower() for word in corpus_words]
+print(corpus_words)
+unique_corpus_words = [word.lower() for word, tag in corpus_words]
 
 # Returns the transition probability matrix and the emission probability matrix based upon all words
 # from the Brown Corpus. Return value is a dictionary with two keys, 'transition' with the value being the
