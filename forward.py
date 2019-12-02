@@ -9,10 +9,13 @@ This is our implementation of the forward algorithm for part of speech tagging.
 # and returns a list of dictionaries that represents the results of the forward algorithm
 def forward(states, observations, transition_prob, emission_prob):
     probabilities = []
+    # Create a list of dictionaries that contain the results
     for i in range(len(observations)):
         probabilities.append({})
+    # Populate the first observation (word) with the emission values
     for state in states:
         probabilities[0][state] = emission_prob[state].prob(observations[0].lower())
+    # Populate the rest of the table with values from the forward algorithm
     for i in range(1, len(observations)):
         for t2 in states:
             probability = 0.0
