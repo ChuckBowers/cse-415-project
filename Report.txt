@@ -26,5 +26,8 @@ Viterbi algorithm
     The Viterbi algorithm is a dynamic programming, decoding algorithm for HMMs. It is used to determine the most likely
     sequence of hidden states that would result in a sequence of observed features. In the case of POS tagging, our
     hidden states are the POS for each word and the observed features are the actual word. The output of the
-    Viterbi algorithm is the sequence
+    Viterbi algorithm is the sequence of most likely POS tags for each word in the given sentence. The Viterbi
+    algorithm works by instantiating a probability matrix with the number of columns being the number of
+    observations and the number of rows being the number hidden states. This means that for each observation in
+    the matrix, there is the probability that that observation was a
 

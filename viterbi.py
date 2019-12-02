@@ -55,20 +55,3 @@ def viterbi(tags, sent, transition, emission):
     best_tags.reverse()
 
     return best_tags
-
-
-# Algorithm set up
-distinct_tags = set(pos_tags)
-sentence = ["The", "dog", "ate", "good", "food"]
-
-viterbi_result = viterbi(distinct_tags, sentence, transition_matrix, emission_matrix)
-
-print("Sentence: ")
-for word in sentence:
-    print(word + " ")
-print("\n")
-print("POS tags: ")
-for tag in viterbi_result:
-    if tag and tag != ".":
-        print(tag + " ")
-print("\n")
