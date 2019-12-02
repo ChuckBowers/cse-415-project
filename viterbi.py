@@ -1,28 +1,3 @@
-import nltk
-import sys
-from nltk.corpus import brown
-
-# Modify the POS tags by using only the first two letters of a tag,
-# which represent the broad class of POS tags in the Brown corpus.
-# Also switch the order of word tag pairs to be tag word to conform
-# with transition and emission probabilities. Add a leading period
-# to give the first sentence in the corpus a starting transition
-# probability.
-tagged_corpus = [(".", ".")]
-for sentence in brown.tagged_sents():
-    tagged_corpus.extend([(tag[:2], word.lower()) for (word, tag) in sentence])
-
-# Create the transition probability matrix
-# Transition probability: P(xt | x{t-1})
-pos_tags = [tag for (tag, word) in tagged_corpus]
-transition_cond_freq_dist = nltk.ConditionalFreqDist(nltk.bigrams(pos_tags))
-transition_matrix = nltk.ConditionalProbDist(transition_cond_freq_dist, nltk.MLEProbDist)
-
-# Create the emission probability matrix
-# Emission probability: P(yt | xt)
-emission_cond_freq_dist = nltk.ConditionalFreqDist(tagged_corpus)
-emission_matrix = nltk.ConditionalProbDist(emission_cond_freq_dist, nltk.MLEProbDist)
-
 # Implement the Viterbi algorithm.
 # Takes in four parameters: 1) a set of unique tags, 2) the provided sentence as a list, 3) a transition probability
 # matrix, and 4) an emission probability matrix. Returns a dictionary with the first value 'predicted_tags' being the
@@ -36,31 +11,37 @@ def viterbi(tags, sent, transition, emission):
 
     # Initialization step
     for tag in tags:
+        # Multiply the probability that the first tag comes after a "." by the probability of the observation given
+        # the tag. Also sentences start with "."
         tag_probs[0][tag] = transition["."].prob(tag) * emission[tag].prob(lower_sent[0])
         actual_tags[0][tag] = None
 
     # Recursion step
     for index in range(1, len(lower_sent)):
+        # Initialize tag probability dictionary (this_tag_prob) and backpointer dictionary (this_actual_tag)
         this_tag_prob = {}
         this_actual_tag = {}
+        # Retrieve the probability dictionary for the previous observation.
         prev_tag_prob = tag_probs[-1]
 
         for tag in tags:
+            # Determine the probability of each tag occurring and retrieve the most likely previous tag path given the
+            # current tag.
             best_prev = max(prev_tag_prob.keys(),
                             key=lambda prev_tag: prev_tag_prob[prev_tag] * transition[prev_tag].prob(tag) *
                             emission[tag].prob(lower_sent[index]))
             this_actual_tag[tag] = best_prev
+            # Using the most likely previous tag determine the probability of the current tag occurring.
             this_tag_prob[tag] = prev_tag_prob[best_prev] * transition[best_prev].prob(tag) * \
                                  emission[tag].prob(lower_sent[index])
-
         tag_probs.append(this_tag_prob)
         actual_tags.append(this_actual_tag)
 
     # Termination step
+    # Repeat what was done previously but now looking for "." to mark the end of the sentence.
     prev_tag_prob = tag_probs[-1]
-    best_prev = max(prev_tag_prob.keys(),
-                    key=lambda prev_tag: prev_tag_prob[prev_tag] * transition[prev_tag].prob("."))
-    best_tags_prob = prev_tag_prob[best_prev] * transition[best_prev].prob(".")
+    best_prev = max(prev_tag_prob.keys(), key=lambda prev_tag: prev_tag_prob[prev_tag])
+    best_tags_prob = prev_tag_prob[best_prev]
     # best_tags is the list of tags or hidden states that will be returned
     best_tags = [".", best_prev]
 

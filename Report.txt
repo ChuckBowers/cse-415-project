@@ -1,0 +1,28 @@
+1) Part of Speech (POS) Tagging Using Hidden Markov Models (HMM)
+
+2) Authors and Contributions
+Ken Masumoto
+    For this project Ken implemented the first of two required algorithms - the forward algorithm. In addition to
+    implementing the forward algorithm he developed the user interface using the tkinter package and co-wrote this
+    report.
+Will Bowers
+    For this project Will implemented the second of two required algorithms - the Viterbi algorithm. In addition
+    to implementing the Viterbi algorithm he found and cleaned the dataset (Brown Corpus) and generated
+    transition probability and emission probability matrices for use in both algorithms. He also co-wrote this report.
+
+3) Purpose
+For this project we are trying to predict the part of speech for each word in a given sentence. We do this by
+utilizing what is called a Hidden Markov model, which is a statistical model used to model systems with hidden states,
+hidden states being non-observable features of our system. Both the forward and Viterbi algorithms are methods by
+which we can try and estimate these hidden states using observations, albeit they answer slightly different questions
+(we will address the differences in the next section). In the case of POS tagging, the observations of our HMM is the
+actual word in the sentence, with the hidden state being the POS for each word. Our algorithms will provide a best
+estimate as to what POS each word is in a given phrase or sentence.
+
+4)
+Forward algorithm
+
+Viterbi algorithm
+    The Viterbi algorithm is dynamic programming, decoding algorithm for HMMs. It is used to determine the most likely
+    sequence of hidden states that would result in a sequence of observed events. In the case of POS tagging, our
+
