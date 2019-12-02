@@ -23,6 +23,8 @@ estimate as to what POS each word is in a given phrase or sentence.
 Forward algorithm
 
 Viterbi algorithm
-    The Viterbi algorithm is dynamic programming, decoding algorithm for HMMs. It is used to determine the most likely
-    sequence of hidden states that would result in a sequence of observed events. In the case of POS tagging, our
+    The Viterbi algorithm is a dynamic programming, decoding algorithm for HMMs. It is used to determine the most likely
+    sequence of hidden states that would result in a sequence of observed features. In the case of POS tagging, our
+    hidden states are the POS for each word and the observed features are the actual word. The output of the
+    Viterbi algorithm is the sequence
 

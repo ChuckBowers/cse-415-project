@@ -1,8 +1,7 @@
 # Implement the Viterbi algorithm.
 # Takes in four parameters: 1) a set of unique tags, 2) the provided sentence as a list, 3) a transition probability
-# matrix, and 4) an emission probability matrix. Returns a dictionary with the first value 'predicted_tags' being the
-# tags predicted for the given sentence and the second 'probability' being the probability that the 'predicted_tags'
-# are correct.
+# matrix, and 4) an emission probability matrix. Returns a list that is the most likely sequence of POS tags for
+# the given phrase.
 def viterbi(tags, sent, transition, emission):
     lower_sent = [word.lower() for word in sent]
     # In the Stanford pseudo-code, tag_probs is 'viterbi' and actual_tags is 'backpointer'
@@ -55,7 +54,7 @@ def viterbi(tags, sent, transition, emission):
     # Reverse best_tags to match pos tags with word order
     best_tags.reverse()
 
-    return {"predicted_tags": best_tags, "probability": best_tags_prob}
+    return best_tags
 
 
 # Algorithm set up
@@ -69,8 +68,7 @@ for word in sentence:
     print(word + " ")
 print("\n")
 print("POS tags: ")
-for tag in viterbi_result['predicted_tags']:
+for tag in viterbi_result:
     if tag and tag != ".":
         print(tag + " ")
 print("\n")
-print("Probability: " + str(viterbi_result['probability']))
