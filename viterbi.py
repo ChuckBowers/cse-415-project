@@ -1,27 +1,4 @@
-import nltk
-import sys
-from nltk.corpus import brown
 
-# Modify the POS tags by using only the first two letters of a tag,
-# which represent the broad class of POS tags in the Brown corpus.
-# Also switch the order of word tag pairs to be tag word to conform
-# with transition and emission probabilities. Add a leading period
-# to give the first sentence in the corpus a starting transition
-# probability.
-tagged_corpus = [(".", ".")]
-for sentence in brown.tagged_sents():
-    tagged_corpus.extend([(tag[:2], word.lower()) for (word, tag) in sentence])
-
-# Create the transition probability matrix
-# Transition probability: P(xt | x{t-1})
-pos_tags = [tag for (tag, word) in tagged_corpus]
-transition_cond_freq_dist = nltk.ConditionalFreqDist(nltk.bigrams(pos_tags))
-transition_matrix = nltk.ConditionalProbDist(transition_cond_freq_dist, nltk.MLEProbDist)
-
-# Create the emission probability matrix
-# Emission probability: P(yt | xt)
-emission_cond_freq_dist = nltk.ConditionalFreqDist(tagged_corpus)
-emission_matrix = nltk.ConditionalProbDist(emission_cond_freq_dist, nltk.MLEProbDist)
 
 # Implement the Viterbi algorithm.
 # Takes in four parameters: 1) a set of unique tags, 2) the provided sentence as a list, 3) a transition probability
@@ -77,19 +54,3 @@ def viterbi(tags, sent, transition, emission):
     return {"predicted_tags": best_tags, "probability": best_tags_prob}
 
 
-# Algorithm set up
-distinct_tags = set(pos_tags)
-sentence = ["The", "dog", "ate", "good", "food"]
-
-viterbi_result = viterbi(distinct_tags, sentence, transition_matrix, emission_matrix)
-
-print("Sentence: ")
-for word in sentence:
-    print(word + " ")
-print("\n")
-print("POS tags: ")
-for tag in viterbi_result['predicted_tags']:
-    if tag and tag != ".":
-        print(tag + " ")
-print("\n")
-print("Probability: " + str(viterbi_result['probability']))
