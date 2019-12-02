@@ -2,9 +2,11 @@ from tkinter import *
 from forward import *
 from viterbi import *
 from nltk import word_tokenize
+from utility import *
 import random
 from utility import *
 
+model_info = probability_matrices()
 
 def execute():
     if len(sentence_input.get()) == 0:
@@ -53,8 +55,8 @@ def execute():
     elif v.get() == "2":
         canvas.delete("all")
         new_sentence = word_tokenize(sentence_input.get())
-        result = viterbi(set(pos_tags), new_sentence, transition_matrix, emission_matrix)
-        new_len = 100 * len(result["predicted_tags"])
+        result = viterbi(model_info["tags"], new_sentence, model_info["transition"], model_info["emission"])
+        new_len = 100 * len(result)
         new_height = 750
         if new_len > 750 or new_height > 750:
             canvas.config(height=new_height, width=new_len)
@@ -62,7 +64,7 @@ def execute():
             canvas.create_rectangle(10 + 100 * i, 25, 100 + 100 * i, 75, fill="white")
             canvas.create_text(55 + 100 * i, 50, text=new_sentence[i])
             canvas.create_rectangle(10 + 100 * i, 90, 100 + 100 * i, 135, fill="lightblue")
-            canvas.create_text(55 + 100 * i, 112, text=result["predicted_tags"][i + 1])
+            canvas.create_text(55 + 100 * i, 112, text=result[i + 1])
         print(result)
 
 root = Tk()
