@@ -1,3 +1,10 @@
+"""
+Authors:
+    kjmasumo
+    bowerw2
+This file contains utility functions and data necessary for our algorithms to run.
+"""
+
 import nltk
 import sys
 from nltk.corpus import brown
@@ -5,9 +12,7 @@ from nltk.corpus import brown
 corpus_words = set(brown.tagged_words())
 unique_corpus_words = [word.lower() for word, tag in corpus_words]
 
-# Modify the POS tags by using only the first two letters of a tag,
-# which represent the broad class of POS tags in the Brown corpus.
-# Also switch the order of word tag pairs to be tag word to conform
+# Switch the order of word tag pairs to be tag word to conform
 # with transition and emission probabilities. Add a leading period
 # to give the first sentence in the corpus a starting transition
 # probability.
