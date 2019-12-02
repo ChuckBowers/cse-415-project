@@ -1,3 +1,12 @@
+"""
+Authors:
+    kjmasumo
+    bowerw2
+This file contains the code to run the user interface in a new window. To interact with our program, navigate to the
+directory that contains this file in the terminal and enter 'python3 visualizer.py'.
+"""
+
+
 from tkinter import *
 from forward import *
 from viterbi import *

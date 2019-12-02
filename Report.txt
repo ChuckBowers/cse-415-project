@@ -69,10 +69,10 @@ Will Bowers
 9) Future Work
     In the future, one of the main things we would like to support is the ability to use multiple corpi, either being
     able to switch between many or synthesizing some together to create more robust transition and emission matrices.
-    Another thing we would like to support are more specific POS tags. For the sake of being able to implement the code
-    in time and trying to understand what we were doing, we simplified the POS tags to broad categories such as noun or
-    verb. Being able to identify more specific POS tags, like different tense verbs would empower us with a deeper
-    understanding of sentences part of speech.
+    Additionally, because we found out about needing to display intermediate steps so late we implemented showing
+    intermediate steps in a fairly inefficient way. An interesting tweak to the Viterbi algorithm we could do in the
+    future is use trigrams when generating the transition probability matrix. This allow us to see more of the phrase
+    at a given state, hopefully providing better information when estimating hidden states.
 
 10) Citations
 Name: Chapter A from Speech and Language Processing
@@ -85,20 +85,24 @@ URL: https://web.stanford.edu/~jurafsky/slp3/8.pdf
 Desc: This resource provided us with pseudo-code for the Viterbi algorithm and also provided an example of the algorithm
       which we used to understand the algorithm in action.
 
-Name: NLTK Get and Simplify List of Tags (Stack Overflow)
-URL: https://stackoverflow.com/questions/30791194/nltk-get-and-simplify-list-of-tags
-Desc: This resource helped us simplify the POS tags from the Brown Corpus to the broad categories such as noun or verb.
-
 Name: Brown Corpus (Wikipedia)
 URL: https://en.wikipedia.org/wiki/Brown_Corpus
 Desc: This resource helped us to know what the POS tags from the Brown Corpus meant so that we could see if our
       algorithms were functioning properly.
 
+Name: Forward algorithm (Wikipedia)
+URL: https://en.wikipedia.org/wiki/Forward_algorithm
+Desc: This resource helped us to understand the forward algorithm and provided pseudo code that helped us implement
+      the forward algorithm as well.
+
 Name: NLTK
-URL: ???? Fill in when I get internet
+URL:  https://www.nltk.org/data.html
 Desc: This is a python package that allowed us to generate transition and emission probability matrices, specifically we
       used: ConditionalFreqDist(), ConditionalProbDist(), MLEProbDist, bigrams() and the Brown Corpus was included in
       NLTK as well.
+      NOTE: IN ORDER FOR OUR ALGORITHMS TO RUN, YOU MUST DOWNLOAD NLTK AND THE BROWN CORPUS FROM NLTK. HERE IS A PAGE
+      FOR DOWNLOADING NLTK TO YOUR MACHINE http://www.nltk.org/install.html. HERE IS A PAGE FOR HOW TO INSTALL MODULES
+      FROM NLTK https://www.nltk.org/data.html. NOTE ALL CODE MUST BE DOWNLOADED BUT ONLY THE BROWN CORPUS IS NECESSARY.
 
 11) Partners' Reflections
 Ken Masumoto
