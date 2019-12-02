@@ -19,7 +19,7 @@ which we can try and estimate these hidden states using observations, albeit the
 actual word in the sentence, with the hidden state being the POS for each word. Our algorithms will provide a best
 estimate as to what POS each word is in a given phrase or sentence.
 
-4)
+4) Technique Description
 Forward algorithm
 
 Viterbi algorithm
@@ -29,5 +29,88 @@ Viterbi algorithm
     Viterbi algorithm is the sequence of most likely POS tags for each word in the given sentence. The Viterbi
     algorithm works by instantiating a probability matrix with the number of columns being the number of
     observations and the number of rows being the number hidden states. This means that for each observation in
-    the matrix, there is the probability that that observation was a
+    the matrix, there is the probability that that observation was a result of a specific POS, for all parts of speech.
+    For every observation after the initial observation, all cells in the matrix represent the probability that the
+    HMM is in this particular state given all previous most likely states. Essentially what the Viterbi algorithm is
+    doing is sequentially filling in the values for each observation (column) until it reaches the end of the given
+    phrase. For each observation, we iterate through all possible tags and compute two values, the probability of the
+    most likely hidden state, and the previous most likely hidden state. The probability of the most likely hidden
+    state is computed by taking the max of all previous tag probabilities multiplied by both the transition probability
+    of the given tag and the emission probability. The previous most likely hidden state is computed similarly but
+    instead of taking the max, the argmax is taken. Once all observations are iterated through, we do a final
+    max / argmax operation on the probabilities for the last observation. Then we iterate backwards through our list
+    of previous most likely states to reconstruct the most likely sequence of hidden states, returning that most likely
+    sequence
 
+5) Interesting Sample Session
+
+6) Demo Instructions
+Running our program is fairly simple. To interact with our algorithms and test inputs, first navigate to the directory
+in which visualizer.py is located. Then type into the terminal 'python3 visualizer.py' and the user interface should
+open in a new window. Before running either algorithm, there are a few options to select. First, choose either the
+forward or Viterbi algorithm. Next choose how many word tag pairs to include from the Brown Corpus, either 100, 500,
+1000, 5000, or all roughly 1.2 million. Finally if the forward was selected, choose how many top tags you would like to
+be displayed, either 1, 5 or 10. Finally enter in your sentence and click 'Run With These Settings'. Due to the our
+algorithms being dependent upon the Brown Corpus, we can only process sentences that contain words found in the corpus.
+If one enters in words that are not in the Brown Corpus they will be notified as to which words they cannot use.
+
+7) Interesting Code Snippet
+
+8) Team Member Learning
+Ken Masumoto
+
+Will Bowers
+    Due to the fact that we did not cover the topic of Hidden Markov models in class, I had to learn a lot for this
+    project. First I had to understand the topic of Hidden Markov models and hidden states. I also tried to understand
+    both the forward and Viterbi algorithms, but since I implemented the Viterbi algorithm I definitely had more of a
+    solid understanding of it than the forward algorithm. Finally I had to learn how to compose transition probability
+    and emission probability matrices as they were not something that came with the Brown Corpus.
+
+9) Future Work
+    In the future, one of the main things we would like to support is the ability to use multiple corpi, either being
+    able to switch between many or synthesizing some together to create more robust transition and emission matrices.
+    Another thing we would like to support are more specific POS tags. For the sake of being able to implement the code
+    in time and trying to understand what we were doing, we simplified the POS tags to broad categories such as noun or
+    verb. Being able to identify more specific POS tags, like different tense verbs would empower us with a deeper
+    understanding of sentences part of speech.
+
+10) Citations
+Name: Chapter A from Speech and Language Processing
+URL: https://web.stanford.edu/~jurafsky/slp3/A.pdf
+Desc: This resource helped us to understand what Hidden Markov models are and we also used the pseudo code from here to
+      implement both the forward and Viterbi algorithms.
+
+Name: Chapter 8 from Speech and Language Processing
+URL: https://web.stanford.edu/~jurafsky/slp3/8.pdf
+Desc: This resource provided us with pseudo-code for the Viterbi algorithm and also provided an example of the algorithm
+      which we used to understand the algorithm in action.
+
+Name: NLTK Get and Simplify List of Tags (Stack Overflow)
+URL: https://stackoverflow.com/questions/30791194/nltk-get-and-simplify-list-of-tags
+Desc: This resource helped us simplify the POS tags from the Brown Corpus to the broad categories such as noun or verb.
+
+Name: Brown Corpus (Wikipedia)
+URL: https://en.wikipedia.org/wiki/Brown_Corpus
+Desc: This resource helped us to know what the POS tags from the Brown Corpus meant so that we could see if our
+      algorithms were functioning properly.
+
+Name: NLTK
+URL: ???? Fill in when I get internet
+Desc: This is a python package that allowed us to generate transition and emission probability matrices, specifically we
+      used: ConditionalFreqDist(), ConditionalProbDist(), MLEProbDist, bigrams() and the Brown Corpus was included in
+      NLTK as well.
+
+11) Partners' Reflections
+Ken Masumoto
+
+Will Bowers
+    For this project, my main role was providing us a dataset in a usable format, implementing the Viterbi algorithm
+    and co-writing this report. Honestly I did not find there to be many challenges in the project. The one challenge
+    I can think of is that Ken had a much better understand of the forward algorithm than I did, so when I was trying
+    to put our code together I would have to ask him if I had messed up his implementation of the algorithm. Another
+    challenge was that since he implemented the UI, I didn't know how to change it myself and therefore would ask him
+    to implement changes I thought were necessary for displaying the Viterbi algorithm. I have worked with Ken in the
+    past and I think he is a wonderful partner: smart, communicative, and easy to get along with. Benefits of working
+    with him was a sounding board for trying to understand HMMs and the algorithms, as well as help developing and
+    debugging. I think this work load would've been close to impossible with other courses and commitments I have so I
+    am extremely grateful I was able to work with Ken.
