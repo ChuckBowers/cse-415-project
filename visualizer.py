@@ -5,11 +5,16 @@ from nltk import word_tokenize
 from utility import *
 import random
 from utility import *
+import time
+
 
 def execute():
     if len(sentence_input.get()) == 0:
         canvas.delete("all")
         canvas.create_text(375, 50, text="Please Enter a Sentence")
+    elif len(sentence_in_corpus(word_tokenize(sentence_input.get()))) > 0:
+        canvas.delete("all")
+        canvas.create_text(375, 50, text="Found an Illegal Word")
     elif v.get() == "1":
         canvas.delete("all")
         new_sentence = word_tokenize(sentence_input.get())
@@ -63,19 +68,25 @@ def execute():
             canvas.create_text(55 + 100 * i, 50, text=new_sentence[i])
             canvas.create_rectangle(10 + 100 * i, 90, 100 + 100 * i, 135, fill="lightblue")
             canvas.create_text(55 + 100 * i, 112, text=result["predicted_tags"][i + 1])
-        '''canvas.delete("all")
+    elif v.get() =="3":
+        canvas.delete("all")
         new_sentence = word_tokenize(sentence_input.get())
-        result = viterbi(set(pos_tags), new_sentence, transition_matrix, emission_matrix)
+        non_normalized_result = forward(set(pos_tags), new_sentence, transition_matrix, emission_matrix)
+        result = normalize(non_normalized_result)
+        print(result)
         new_len = 100 * len(result)
-        new_height = 750
+        new_height = 60 * len(result[0]) + 100
         if new_len > 750 or new_height > 750:
             canvas.config(height=new_height, width=new_len)
-        for i in range(len(new_sentence)):
+        for i in range(len(result)):
             canvas.create_rectangle(10 + 100 * i, 25, 100 + 100 * i, 75, fill="white")
             canvas.create_text(55 + 100 * i, 50, text=new_sentence[i])
-            canvas.create_rectangle(10 + 100 * i, 90, 100 + 100 * i, 135, fill="lightblue")
-            canvas.create_text(55 + 100 * i, 112, text=result[i + 1])
-        print(result)'''
+            j = 0
+            for pos in result[i]:
+                val = str(pos) + ": " + "{0:.3f}".format(result[i][pos])
+                canvas.create_rectangle(10 + 100 * i, 90 + 50 * j, 100 + 100 * i, 135 + 50 * j, fill="lightblue")
+                canvas.create_text(55 + 100 * i, 112 + 50 * j, text=val)
+                j += 1
 
 
 root = Tk()
@@ -89,7 +100,8 @@ test_button = Button(root, text="Run With These Settings", command=lambda: execu
 Label(root, text="Choose Which Algorithm You Want To Run").pack()
 v = StringVar(root, "1")
 values = {"Forward": "1",
-          "Viterbi": "2"}
+          "Viterbi": "2",
+          "Show All Parts of Speech": "3"}
 
 for (text, value) in values.items():
     Radiobutton(root, text=text, variable=v, value=value).pack()

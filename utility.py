@@ -26,10 +26,6 @@ transition_matrix = nltk.ConditionalProbDist(transition_cond_freq_dist, nltk.MLE
 emission_cond_freq_dist = nltk.ConditionalFreqDist(tagged_corpus)
 emission_matrix = nltk.ConditionalProbDist(emission_cond_freq_dist, nltk.MLEProbDist)
 
-# Define global set of words in corpus
-corpus_words = set(brown.tagged_words())
-unique_corpus_words = [word.lower() for word, tag in corpus_words]
-
 
 # Returns True if word exists in Brown Corpus, False if not
 def _word_in_corpus(input_word):
