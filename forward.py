@@ -5,6 +5,8 @@ Authors:
 This is our implementation of the forward algorithm for part of speech tagging.
 """
 
+# Takes in a list of all possible states, all of the observations, and a transition and emission probability matrices
+# and returns a list of dictionaries that represents the results of the forward algorithm
 def forward(states, observations, transition_prob, emission_prob):
     probabilities = []
     for i in range(len(observations)):
@@ -20,6 +22,7 @@ def forward(states, observations, transition_prob, emission_prob):
     return probabilities
 
 
+# Takes in a result that is a list of dictionaries and normalizes all of the probabilities in the result table
 def normalize(result):
     totals = []
     normalized = []
@@ -36,6 +39,7 @@ def normalize(result):
     return normalized
 
 
+# Formats the result into a nice-looking print-out
 def format(result, poss_states, states_index):
     print("\t", end="")
     for i in range(len(result[0])):
