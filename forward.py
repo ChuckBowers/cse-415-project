@@ -5,6 +5,7 @@ Authors:
 This is our implementation of the forward algorithm for part of speech tagging.
 """
 
+
 # Takes in a list of all possible states, all of the observations, and a transition and emission probability matrices
 # and returns a list of dictionaries that represents the results of the forward algorithm
 def forward(states, observations, transition_prob, emission_prob):
